@@ -1,10 +1,10 @@
-
 <!doctype html>
 <html lang="en">
 <head>
   {% load static %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Jekyll v4.1.1">
@@ -41,7 +41,6 @@
         font-size: 3.5rem;
       }
     }
-
     body {
       background-image: url({% static 'city.jpg' %});
       background-repeat: no-repeat;
@@ -63,53 +62,50 @@
         <div class="navbar-nav ml-auto">
           <a class="nav-link" href="https://twitter.com/Tursuna13791720">Twitter</a>
           <a class="nav-link" href="{% static 'resume.pdf' %}">Resume</a>
-          <a class="nav-link" href="{% url 'blog' %}">Blog</a>
+          <a class="nav-link active" href="{% url 'blog' %}">Blog</a>
         </div>
       </div>
     </nav>
 
     <nav class="navbar navbar-light bg-light">
+      <div class="ml-auto">
+
       <form class="form-inline">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
+
+      </div>
     </nav>
 
   </header>
 
-  <main role="main">
+  <main class="container" role="main">
 
-    <section class="jumbotron text-center container">
+    <section class="jumbotron text-center">
       <div class="container">
-        <h1>Hi, I'm Ali</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-        <p>
-          <a href="mailto:alixanxoldorov@gmail.com" class="btn btn-primary my-2">Email Me</a>
-        </p>
-        <img src="{% static 'ali.jpg' %}" alt="Ali's photo" style="width: 20rem;">
+        <h1>Welcome to Ali's Blog!</h1>
+
       </div>
     </section>
 
-    <div class="album py-5 bg-light halfOpacity container rounded">
-      <div class="container">
+      <h1>Latest Posts</h1>
+      <hr>
 
-        <div class="row">
+      {% for blog in blogs.all %}
 
-          {% for job in jobs.all %}
-          <div class="col-md-4">
-            <div class="card mb-4 box-shadow">
-              <img class = "card-img-top" src="{{ job.image.url }}" alt="">
-              <div class="card-body">
-                <p class="card-text">{{job.summary}}</p>
-              </div>
-            </div>
-            </div>
-          {% endfor %}
+      <div class="card" width="55rem">
+        <a href="{% url 'detail' blog.id %}"><h3>{{blog.title}}</h3></a>
+        <img src="{{blog.image.url}}" class="card-img-top" alt="none" style="width: 18rem;">
+        <div class="card-body">
+          <p class="card-text">{{ blog.newbody }}</p>
         </div>
+        <div class="card-footer text-muted">
+          {{blog.pub_date}} in utc
         </div>
-        </div>
-
-
+      </div>
+      <br><br>
+      {% endfor %}
 
   </main>
 
